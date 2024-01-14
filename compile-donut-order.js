@@ -1,5 +1,7 @@
 /**
  *
+ * !IMPORTANT: Make sure you wait till the page has loaded entirely
+ * 
  * HOW TO USE:
  *
  * 1. Fill out the donutWants, it is an array of tuples,
@@ -17,8 +19,15 @@
  *
  * 5. Double check the list and checkout
  */
-const donutWants = [["Person 1", "Chocolate-Iced Chocolate Cake"]];
 
+// Your donut list:
+const donutWants = [
+  ["person 1", "Chocolate-Iced Chocolate Cake"],
+];
+
+/**
+ * RE-USABLE FUNCTIONS
+ */
 const printOrder = () => {
   donutWants.forEach(([person, donuts]) => {
     const donut = Array.isArray(donuts) ? donuts.join(", ") : donuts;
@@ -81,6 +90,9 @@ const order = (donut) => () => {
   );
 };
 
+/**
+ * CREATE ALL THE ORDER FUNCTIONS
+ */
 const orders = donutWants.reduce((myOrders, [name, donuts]) => {
   if (Array.isArray(donuts)) {
     const newOrders = donuts.map((donut) => order(donut));
@@ -90,6 +102,13 @@ const orders = donutWants.reduce((myOrders, [name, donuts]) => {
   }
 }, []);
 
+/**
+ * ACTUAL PROGRAM
+ * 1. set up the conditions, close the model
+ * 2. do the first order, increment the index,
+ *    when the promise is resolved, if there are
+ *    less
+ */
 setup();
 let currentDonut = 0;
 const stop = orders.length;
